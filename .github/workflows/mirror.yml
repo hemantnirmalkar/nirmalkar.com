@@ -9,6 +9,7 @@ on:
 
 jobs:
   mirror:
+    if: github.repository == 'nirmalkar/nirmalkar.com'
     runs-on: ubuntu-latest
 
     steps:
