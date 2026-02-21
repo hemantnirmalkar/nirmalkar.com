@@ -1,9 +1,12 @@
 import * as dotenv from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
 
-dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
+// Load environment variables based on NODE_ENV
+const envFile =
+  process.env.NODE_ENV === 'production'
+    ? '.env.production'
+    : '.env.development';
+dotenv.config({ path: envFile });
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -52,6 +55,7 @@ const config: GatsbyConfig = {
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: process.env.CONTENTFUL_HOST || 'cdn.contentful.com',
       },
     },
   ],
