@@ -78,7 +78,6 @@ const config: GatsbyConfig = {
         host: process.env.CONTENTFUL_HOST || 'cdn.contentful.com',
         // Minimal config to avoid buffer issues
         enableTags: false,
-        enableDownloadedAssets: false,
         pageLimit: 50, // Reduce page limit
       },
     },
