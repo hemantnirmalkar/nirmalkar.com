@@ -1,0 +1,29 @@
+name: Mirror to hemantnirmalkar
+
+on:
+  push:
+    branches:
+      - '**'
+  delete:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git config
+        run: |
+          git config --global user.name "Mirror Bot"
+          git config --global user.email "mirror-bot@users.noreply.github.com"
+
+      - name: Push mirror
+        env:
+          TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          git remote add mirror https://x-access-token:${TOKEN}@github.com/hemantnirmalkar/nirmalkar.com.git
+          git push --mirror mirror
