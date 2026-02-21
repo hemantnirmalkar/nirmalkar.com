@@ -4,11 +4,6 @@
   "outputDirectory": "public",
   "installCommand": "npm install",
   "devCommand": "npm run develop",
-  "functions": {
-    "api/**/*.js": {
-      "maxDuration": 10
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
