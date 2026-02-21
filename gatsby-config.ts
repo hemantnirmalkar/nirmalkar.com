@@ -8,6 +8,26 @@ const envFile =
     : '.env.development';
 dotenv.config({ path: envFile });
 
+// Check for required environment variables
+if (!process.env.CONTENTFUL_SPACE_ID || !process.env.CONTENTFUL_ACCESS_TOKEN) {
+  console.error('❌ Missing required Contentful environment variables:');
+  console.error(
+    '   - CONTENTFUL_SPACE_ID:',
+    process.env.CONTENTFUL_SPACE_ID ? '✅' : '❌ Missing',
+  );
+  console.error(
+    '   - CONTENTFUL_ACCESS_TOKEN:',
+    process.env.CONTENTFUL_ACCESS_TOKEN ? '✅' : '❌ Missing',
+  );
+  console.error('\n📝 To fix this:');
+  console.error('   1. Locally: Check your .env.production file');
+  console.error(
+    '   2. On Vercel: Add environment variables in project settings',
+  );
+  console.error('   3. Restart the build process\n');
+  // Don't fail the build entirely, but log the error clearly
+}
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `Nirmalkar`,
