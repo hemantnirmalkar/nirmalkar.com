@@ -16,20 +16,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - name: Debug token presence
-        env:
-          TOKEN: ${{ secrets.MIRROR_TOKEN }}
-        run: |
-          if [ -z "$TOKEN" ]; then
-            echo "❌ TOKEN IS EMPTY"
-            exit 1
-          else
-            echo "✅ TOKEN EXISTS"
-            echo "Token length: ${#TOKEN}"
-          fi
-
-      - name: Configure Git
+      - name: Configure Git identity
         run: |
           git config --global user.name "Mirror Bot"
           git config --global user.email "mirror-bot@users.noreply.github.com"
