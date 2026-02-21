@@ -76,6 +76,10 @@ const config: GatsbyConfig = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         host: process.env.CONTENTFUL_HOST || 'cdn.contentful.com',
+        // Minimal config to avoid buffer issues
+        enableTags: false,
+        enableDownloadedAssets: false,
+        pageLimit: 50, // Reduce page limit
       },
     },
   ],
