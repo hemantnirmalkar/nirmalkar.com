@@ -5,6 +5,7 @@ on:
     branches:
       - '**'
   delete:
+  workflow_dispatch:
 
 jobs:
   mirror:
@@ -16,14 +17,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Git config
+      - name: Debug token presence
+        env:
+          TOKEN: ${{ secrets.MIRROR_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "❌ TOKEN IS EMPTY"
+            exit 1
+          else
+            echo "✅ TOKEN EXISTS"
+            echo "Token length: ${#TOKEN}"
+          fi
+
+      - name: Configure Git
         run: |
           git config --global user.name "Mirror Bot"
           git config --global user.email "mirror-bot@users.noreply.github.com"
 
-      - name: Push mirror
+      - name: Push to mirror repository
         env:
           TOKEN: ${{ secrets.MIRROR_TOKEN }}
         run: |
-          git remote add mirror https://x-access-token:${TOKEN}@github.com/hemantnirmalkar/nirmalkar.com.git
-          git push --mirror mirror
+          git push --mirror https://x-access-token:${TOKEN}@github.com/hemantnirmalkar/nirmalkar.com.git
